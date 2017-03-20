@@ -20,7 +20,6 @@
     <integer-array name="colors">
         <item>@color/roseStart</item>
         <item>@color/roseEnd</item>
-        <item>@color/blueStart</item>
         <item>@color/blueEnd</item>
         <item>@color/greenStart</item>
         <item>@color/greenEnd</item>

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.ashutosh.helpinghand"
+        applicationId "com.helpinghand"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
@@ -31,5 +31,6 @@ dependencies {
     compile 'com.github.igalata:Bubble-Picker:v0.1.2'
     compile 'de.greenrobot:greendao-generator:2.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.github.markushi:circlebutton:1.1'
     testCompile 'junit:junit:4.12'
 }

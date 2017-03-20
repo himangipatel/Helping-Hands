@@ -1,11 +1,11 @@
-package com.ashutosh.helpinghand;
+package com.helpinghands;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.ashutosh.helpinghand.database.ContactsDao;
-import com.ashutosh.helpinghand.database.DaoMaster;
-import com.ashutosh.helpinghand.database.DaoSession;
+import com.helpinghands.database.ContactsDao;
+import com.helpinghands.database.DaoMaster;
+import com.helpinghands.database.DaoSession;
 
 
 /**

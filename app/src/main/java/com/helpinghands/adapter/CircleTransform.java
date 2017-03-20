@@ -1,4 +1,4 @@
-package com.ashutosh.helpinghand.adapter;
+package com.helpinghands.adapter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

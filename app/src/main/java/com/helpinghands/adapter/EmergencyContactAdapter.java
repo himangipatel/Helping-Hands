@@ -1,4 +1,4 @@
-package com.ashutosh.helpinghand.adapter;
+package com.helpinghands.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ashutosh.helpinghand.R;
-import com.ashutosh.helpinghand.database.Contacts;
+import com.helpinghand.R;
+import com.helpinghands.database.Contacts;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

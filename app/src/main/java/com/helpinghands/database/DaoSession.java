@@ -1,4 +1,4 @@
-package com.ashutosh.helpinghand.database;
+package com.helpinghands.database;
 
 import android.database.sqlite.SQLiteDatabase;
 

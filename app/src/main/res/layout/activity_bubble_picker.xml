@@ -2,21 +2,97 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:background="@drawable/gradientdrawable"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_80sdp"
         android:layout_gravity="start"
         android:padding="10dp"
-        android:src="@mipmap/splaimg"/>
+        android:src="@mipmap/splaimg" />
 
     <com.igalata.bubblepicker.rendering.BubblePicker
         android:id="@+id/picker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:backgroundColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvShowLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="@string/show_location"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/round_shape" />
+
+            <TextView
+                android:id="@+id/tvAddContacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="@string/add_contacts"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/round_shape1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvShowContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/show_contacts"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_shape3" />
+
+            <TextView
+                android:id="@+id/tvSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Setting"
+                android:textStyle="bold"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_shape2" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

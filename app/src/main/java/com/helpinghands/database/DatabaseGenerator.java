@@ -1,4 +1,4 @@
-package com.ashutosh.helpinghand.database;
+package com.helpinghands.database;
 
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;

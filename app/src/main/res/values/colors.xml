@@ -8,8 +8,8 @@
     <color name="background_light">#FFF3E0</color>
 
     <!-- Dark colors -->
-    <color name="colorPrimary_dark">#2E7D32</color>
-    <color name="colorPrimaryDark_dark">#1B5E20</color>
+    <color name="colorPrimary_dark">#FF6A00</color>
+    <color name="colorPrimaryDark_dark">#FF6A00</color>
     <color name="colorAccent_dark">#FAFAFA</color>
     <color name="background_dark">#263238</color>
 

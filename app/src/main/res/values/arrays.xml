@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="countries">
+        <item>Show Contacts</item>
+        <item>Add Contacts</item>
+        <item>Show Location</item>
+        <item>Share Location</item>
+        <item>Setting</item>
+    </string-array>
+
+    <integer-array name="images">
+        <item>@drawable/ic_user</item>
+        <item>@drawable/ic_user</item>
+        <item>@drawable/ic_user</item>
+        <item>@drawable/ic_user</item>
+        <item>@drawable/ic_user</item>
+    </integer-array>
+
+    <integer-array name="colors">
+        <item>@color/roseStart</item>
+        <item>@color/roseEnd</item>
+        <item>@color/blueStart</item>
+        <item>@color/blueEnd</item>
+        <item>@color/greenStart</item>
+        <item>@color/greenEnd</item>
+        <item>@color/purpleStart</item>
+        <item>@color/purpleEnd</item>
+    </integer-array>
+
+</resources>

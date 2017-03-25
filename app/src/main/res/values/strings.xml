@@ -2,6 +2,7 @@
     <string name="app_name">Helping Hand</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="add_contacts">Add Contacts</string>
-    <string name="show_location">Show Location</string>
+    <string name="show_location">Track Location</string>
     <string name="show_contacts">Show Contacts</string>
+    <string name="title_activity_maps1">Map</string>
 </resources>

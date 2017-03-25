@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.helpinghand.R;
+import com.helpinghands.SharedPreferenceHelper;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -14,9 +15,16 @@ public class SplashActivity extends AppCompatActivity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            Intent intent = new Intent(SplashActivity.this, BubblePickerActivity.class );
-            startActivity(intent);
-            finish();
+            SharedPreferenceHelper preferenceHelper = new SharedPreferenceHelper(SplashActivity.this);
+            if (preferenceHelper.isLogin()){
+                Intent intent = new Intent(SplashActivity.this,BubblePickerActivity.class );
+                startActivity(intent);
+                finish();
+            }else {
+                Intent intent = new Intent(SplashActivity.this,LoginActivity.class );
+                startActivity(intent);
+                finish();
+            }
         }
     };
 

@@ -34,7 +34,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvShowLocation"
+                android:id="@+id/tvTrackLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
@@ -80,13 +80,13 @@
                 android:background="@drawable/rounded_shape3" />
 
             <TextView
-                android:id="@+id/tvSetting"
+                android:id="@+id/tvProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Setting"
+                android:text="Profile"
                 android:textStyle="bold"
                 android:textSize="@dimen/_11sdp"
                 android:textColor="@android:color/white"

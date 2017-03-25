@@ -1,6 +1,7 @@
 package com.helpinghands.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.helpinghand.R;
+import com.helpinghands.OnContactListener;
 import com.helpinghands.database.Contacts;
 import com.squareup.picasso.Picasso;
 
@@ -26,10 +28,12 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
 
     private Context mContext;
     private List<Contacts> mEmergencyContactList;
+    private OnContactListener onContactListener;
 
-    public EmergencyContactAdapter(Context mContext, List<Contacts> mEmergencyContactList) {
+    public EmergencyContactAdapter(Context mContext, List<Contacts> mEmergencyContactList, OnContactListener onContactListener) {
         this.mContext = mContext;
         this.mEmergencyContactList = mEmergencyContactList;
+        this.onContactListener = onContactListener;
     }
 
 
@@ -43,7 +47,7 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
     }
 
     @Override
-    public void onBindViewHolder(EmergencyViewHolder holder, int position) {
+    public void onBindViewHolder(EmergencyViewHolder holder, final int position) {
 
         Contacts contact = mEmergencyContactList.get(position);
 
@@ -53,9 +57,26 @@ public class EmergencyContactAdapter extends RecyclerView.Adapter<EmergencyConta
                     .error(R.drawable.ic_user)
                     .transform(new CircleTransform())
                     .into(holder.iVUser);
+        }else {
+            holder.iVUser.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_user));
         }
 
         holder.tVuserName.setText(contact.getName());
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                onContactListener.onContactLongClick(position,mEmergencyContactList.get(position));
+                return true;
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onContactListener.onContactClick(position,mEmergencyContactList.get(position));
+            }
+        });
     }
 
     @Override

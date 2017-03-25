@@ -1,6 +1,9 @@
 package com.helpinghands.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
@@ -10,11 +13,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.helpinghand.R;
+import com.helpinghands.OnContactListener;
 import com.helpinghands.adapter.EmergencyContactAdapter;
 import com.helpinghands.HelpingHandApp;
 import com.helpinghands.database.Contacts;
+import com.helpinghands.fragment.FancyAlertDialog;
 import com.onegravity.contactpicker.contact.Contact;
 import com.onegravity.contactpicker.contact.ContactDescription;
 import com.onegravity.contactpicker.contact.ContactSortOrder;
@@ -34,6 +40,8 @@ public class AddEmergencyContactActivity extends AppCompatActivity {
     public RecyclerView rvEmergencyContacts;
 
     private static final int REQUEST_CONTACT = 123;
+    private EmergencyContactAdapter emergencyContactAdapter;
+    private ArrayList<Contacts> mContactList;
 
 
     @Override
@@ -93,12 +101,58 @@ public class AddEmergencyContactActivity extends AppCompatActivity {
     }
 
     private void setAdapter() {
-        List<Contacts> mContactList = new ArrayList<>();
+        mContactList = new ArrayList<>();
         mContactList.addAll(HelpingHandApp.contactsDao.loadAll());
         rvEmergencyContacts.setLayoutManager(new GridLayoutManager(AddEmergencyContactActivity.this, 3));
-        EmergencyContactAdapter emergencyContactAdapter = new EmergencyContactAdapter(AddEmergencyContactActivity.this, mContactList);
+        emergencyContactAdapter = new EmergencyContactAdapter(AddEmergencyContactActivity.this, mContactList, onContactListener);
         rvEmergencyContacts.setAdapter(emergencyContactAdapter);
     }
+
+    private OnContactListener onContactListener = new OnContactListener() {
+        @Override
+        public void onContactLongClick(final int position, final Contacts contacts) {
+             new AlertDialog.Builder(AddEmergencyContactActivity.this)
+                    .setTitle("Delete Contact")
+                    .setMessage("Are you sure you want to delete this contact?")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            mContactList.remove(position);
+                            emergencyContactAdapter.notifyDataSetChanged();
+                            HelpingHandApp.contactsDao.delete(contacts);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                            dialog.dismiss();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+
+        }
+
+        @Override
+        public void onContactClick(int position, Contacts contacts) {
+            final FancyAlertDialog.Builder alert = new FancyAlertDialog.Builder(AddEmergencyContactActivity.this)
+                    .setImageDrawable(contacts.getPhoto())
+                    .setTextTitle(contacts.getName())
+                    .setTextSubTitle(contacts.getPhonuNumber())
+                    .setBody("".concat("Press long click on Contact to remove ").concat(contacts.getName()).concat(" from emergency contact list"))
+                    .setPositiveButtonText("OK")
+                    .setPositiveColor(R.color.colorPrimaryDark_dark)
+                    .setOnPositiveClicked(new FancyAlertDialog.OnPositiveClicked() {
+                        @Override
+                        public void OnClick(View view, Dialog dialog) {
+                            dialog.dismiss();
+                        }
+                    })
+                       /* .setAutoHide(true)*/
+                    .build();
+            alert.show();
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -1,10 +1,15 @@
 package com.helpinghands.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -34,10 +39,6 @@ public class BubblePickerActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 12345;
     @BindView(R.id.picker)
     BubblePicker picker;
-    private TextView tvAddContacts;
-    private TextView tvShowContact;
-    private TextView tvTrackLocation;
-    private TextView tvProfile;
 
 
     private View.OnClickListener onAddContactListener = new View.OnClickListener() {
@@ -66,9 +67,8 @@ public class BubblePickerActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (checkPermission()) {
-                Intent intent = new Intent(BubblePickerActivity.this, MapsActivity.class);
-                startActivity(intent);
 
+                checkForlocation();
             } else {
                 ActivityCompat.requestPermissions(
                         BubblePickerActivity.this,
@@ -77,6 +77,46 @@ public class BubblePickerActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void checkForlocation() {
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception ignored) {
+        }
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception ignored) {
+        }
+
+        if (!gps_enabled && !network_enabled) {
+            // notify user
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setMessage(getResources().getString(R.string.gps_network_not_enabled));
+            dialog.setCancelable(false);
+            dialog.setPositiveButton(getResources().getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    // TODO Auto-generated method stub
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(myIntent, 555);
+//
+//                    Intent callGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                    startActivityForResult(callGPSSettingIntent,1);
+                    //get gps
+                }
+            });
+
+            dialog.show();
+        } else {
+            Intent intent = new Intent(BubblePickerActivity.this, MapsActivity.class);
+            startActivity(intent);
+        }
+    }
 
     private View.OnClickListener onProfileViewClickListener = new View.OnClickListener() {
         @Override
@@ -109,10 +149,10 @@ public class BubblePickerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         picker = (BubblePicker) findViewById(R.id.picker);
-        tvShowContact = (TextView) findViewById(R.id.tvShowContact);
-        tvAddContacts = (TextView) findViewById(R.id.tvAddContacts);
-        tvTrackLocation = (TextView) findViewById(R.id.tvTrackLocation);
-        tvProfile = (TextView) findViewById(R.id.tvProfile);
+        TextView tvShowContact = (TextView) findViewById(R.id.tvShowContact);
+        TextView tvAddContacts = (TextView) findViewById(R.id.tvAddContacts);
+        TextView tvTrackLocation = (TextView) findViewById(R.id.tvTrackLocation);
+        TextView tvProfile = (TextView) findViewById(R.id.tvProfile);
 
         tvShowContact.setOnClickListener(onShowContactListener);
         tvAddContacts.setOnClickListener(onAddContactListener);
@@ -129,14 +169,13 @@ public class BubblePickerActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_ACCESS_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(BubblePickerActivity.this, MapsActivity.class);
-                    startActivity(intent);
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                   checkForlocation();
 
-                } else {
-                    Toast.makeText(BubblePickerActivity.this, "Allow Location Pemission To Tract Location", Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(BubblePickerActivity.this, "Allow Location Pemission To Tract Location", Toast.LENGTH_SHORT).show();
+//                }
                 break;
             }
             case STORAGE_PERMISSION_CODE: {
@@ -160,16 +199,15 @@ public class BubblePickerActivity extends AppCompatActivity {
         int result = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
 
         //If permission is granted returning true
-        if (result == PackageManager.PERMISSION_GRANTED)
+        if (result == PackageManager.PERMISSION_GRANTED) {
             return true;
-
-        //If permission is not granted returning false
+        }
         return false;
+
     }
 
     private boolean checkPermission() {
-        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     //Requesting permission
@@ -185,4 +223,9 @@ public class BubblePickerActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, STORAGE_PERMISSION_CODE);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        checkForlocation();
+    }
 }

@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_7sdp"
     android:orientation="vertical"
-    android:gravity="center"
-    android:layout_gravity="top">
+    android:gravity="top|center"
+    android:layout_gravity="top|center">
 
     <ImageView
         android:id="@+id/iVUser"

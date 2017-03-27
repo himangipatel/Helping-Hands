@@ -133,7 +133,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
         Intent intent = new Intent(
                 android.content.Intent.ACTION_SENDTO, sendSmsTo);
-        intent.putExtra("sms_body", "Helping Hands ".concat(message));
+        intent.putExtra("sms_body", "Hello I am in trouble so help me out I am at this location  ".concat(message));
         startActivity(intent);
 
     }

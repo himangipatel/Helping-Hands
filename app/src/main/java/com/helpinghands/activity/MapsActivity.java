@@ -82,8 +82,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-
-        if (checkPermission()) {
             if (checkPlayServices()) {
 
                 // Building the GoogleApi client
@@ -92,12 +90,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
                 createLocationRequest();
 
             }
-        } else {
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
-        }
+
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -120,27 +113,33 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     }
 
     private void shareLocation(){
-        List<Contacts> contactList = HelpingHandApp.contactsDao.loadAll();
-        String toNumbers = "";
-        for ( Contacts contact : contactList)
-        {
-            toNumbers = toNumbers + contact.getPhonuNumber() + ";";
+
+        if (mLastLocation!=null){
+            List<Contacts> contactList = HelpingHandApp.contactsDao.loadAll();
+           if (!contactList.isEmpty()){
+               String toNumbers = "";
+               for ( Contacts contact : contactList)
+               {
+                   toNumbers = toNumbers + contact.getPhonuNumber() + ";";
+               }
+               toNumbers = toNumbers.substring(0, toNumbers.length() - 1);
+
+               String message= "http://maps.google.com?q=".concat(String.valueOf(mLastLocation.getLatitude())).concat(",").concat(String.valueOf(mLastLocation.getLongitude()));
+
+               Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
+               Intent intent = new Intent(
+                       android.content.Intent.ACTION_SENDTO, sendSmsTo);
+               intent.putExtra("sms_body", "Hello I am in trouble so help me out I am at this location  ".concat(message));
+               startActivity(intent);
+           }else {
+               Toast.makeText(this, "Add Emergency Contacts to share your location", Toast.LENGTH_SHORT).show();
+           }
+        }else {
+            Toast.makeText(this, "Enable to track your location,turn on location from setting", Toast.LENGTH_SHORT).show();
         }
-        toNumbers = toNumbers.substring(0, toNumbers.length() - 1);
 
-        String message= "http://maps.google.com?q=".concat(String.valueOf(mLastLocation.getLatitude())).concat(",").concat(String.valueOf(mLastLocation.getLongitude()));
 
-        Uri sendSmsTo = Uri.parse("smsto:" + toNumbers);
-        Intent intent = new Intent(
-                android.content.Intent.ACTION_SENDTO, sendSmsTo);
-        intent.putExtra("sms_body", "Hello I am in trouble so help me out I am at this location  ".concat(message));
-        startActivity(intent);
 
-    }
-
-    private boolean checkPermission() {
-        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
 
@@ -442,28 +441,5 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_ACCESS_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (checkPlayServices()) {
-
-                        // Building the GoogleApi client
-                        buildGoogleApiClient();
-
-                        createLocationRequest();
-
-                    }
-
-                }
-                return;
-            }
-
-        }
-    }
 
 }

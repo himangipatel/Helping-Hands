@@ -13,12 +13,6 @@
         android:padding="10dp"
         android:src="@mipmap/splaimg" />
 
-    <com.igalata.bubblepicker.rendering.BubblePicker
-        android:id="@+id/picker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:backgroundColor="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"

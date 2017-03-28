@@ -22,13 +22,6 @@ import android.widget.Toast;
 import com.helpinghand.R;
 import com.helpinghands.SharedPreferenceHelper;
 import com.helpinghands.fragment.FancyAlertDialog;
-import com.igalata.bubblepicker.BubblePickerListener;
-import com.igalata.bubblepicker.model.PickerItem;
-import com.igalata.bubblepicker.rendering.BubblePicker;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,8 +30,7 @@ public class BubblePickerActivity extends AppCompatActivity {
 
     private static final int STORAGE_PERMISSION_CODE = 123;
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_LOCATION = 12345;
-    @BindView(R.id.picker)
-    BubblePicker picker;
+
 
 
     private View.OnClickListener onAddContactListener = new View.OnClickListener() {
@@ -148,7 +140,6 @@ public class BubblePickerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bubble_picker);
         ButterKnife.bind(this);
 
-        picker = (BubblePicker) findViewById(R.id.picker);
         TextView tvShowContact = (TextView) findViewById(R.id.tvShowContact);
         TextView tvAddContacts = (TextView) findViewById(R.id.tvAddContacts);
         TextView tvTrackLocation = (TextView) findViewById(R.id.tvTrackLocation);

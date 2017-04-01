@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,6 +74,7 @@ public class FancyAlertDialog extends DialogFragment {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         return dialog;
     }
 

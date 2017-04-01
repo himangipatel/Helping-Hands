@@ -118,7 +118,7 @@ public class BubblePickerActivity extends AppCompatActivity {
 
             final FancyAlertDialog.Builder alert = new FancyAlertDialog.Builder(BubblePickerActivity.this)
                     .setImageDrawable(preferenceHelper.getUserProfile())
-                    .setTextTitle(preferenceHelper.getUserFullName())
+                    .setTextTitle("            ".concat(preferenceHelper.getUserFullName()).concat("            "))
                     .setTextSubTitle(preferenceHelper.getUserPhoneNumber())
                     .setPositiveButtonText("OK")
                     .setPositiveColor(R.color.colorPrimaryDark_dark)

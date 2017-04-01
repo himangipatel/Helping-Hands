@@ -74,7 +74,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
     private SupportMapFragment mapFragment;
 
     private List<LatLng> mLocationLiist;
-    private Button btnStart;
 
 
     @Override
@@ -91,8 +90,6 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
 
             }
 
-
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -101,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements LocationListener, 
         mLocationLiist = new ArrayList<>();
 
 
-        btnStart = (Button) findViewById(R.id.btnStart);
+        Button btnStart = (Button) findViewById(R.id.btnStart);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override

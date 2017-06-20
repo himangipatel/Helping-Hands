@@ -1,0 +1,5 @@
+<string name="my_xml_resource_string">%1$d is an int and %2$s is a String.</string>
+
+int myInt = 12;
+String myString = "Hello";
+String myFormattedString = String.format(getString(R.string.my_xml_resource_string), myInt, myString);

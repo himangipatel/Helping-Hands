@@ -35,3 +35,6 @@ public class ExampleSubclass extends Example {
     step(10);
   }
 }
+
+
+static block -> Initialization block -> and finally Constructor
